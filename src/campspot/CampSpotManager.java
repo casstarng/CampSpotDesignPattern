@@ -1,5 +1,6 @@
 package campspot;
 
+import UTIL.DAO;
 import UTIL.GUIUtil;
 import entity.CampSpot;
 import entity.Conf;
@@ -49,6 +50,7 @@ public class CampSpotManager {
     Date startDate = new Date(); // store today's date on startDate if user doesn't specify.
     Date endDate = null;
     JFormattedTextField date1Compare, date2Compare;
+    DAO dao = DAO.getInstance();
 
 
     public CampSpotManager(){
@@ -231,18 +233,6 @@ public class CampSpotManager {
                     return;
                 }
                 try{
-                    Object obj = parser.parse(new FileReader("data/reservation.json"));
-                    Object campSpotParser = parser.parse(new FileReader("data/CampSpotManager.json"));
-                    JSONObject reservations = (JSONObject) obj;
-                    JSONArray campsArr = (JSONArray) campSpotParser;
-                    JSONArray array;
-                    // If account exists
-                    if (reservations.containsKey(Conf.account)){
-                        array = (JSONArray) reservations.get(Conf.account);
-                    }
-                    else{
-                        array = new JSONArray();
-                    }
                     // Create new Object and append to array
                     JSONObject newReservation = new JSONObject();
                     newReservation.put("pricePerDay", currentSpot.getPrice());
@@ -261,27 +251,9 @@ public class CampSpotManager {
                     campSpotData.put("tentSpace", currentSpot.getTentSpace());
                     campSpotData.put("handicap", currentSpot.isHandicap());
                     newReservation.put("campSpot", campSpotData);
-                    array.add(newReservation);
 
-                    for (int i = 0; i<campsArr.size(); i++) {
-                        JSONObject currCamp = (JSONObject) campsArr.get(i);
-                        if(currCamp.get("label").equals(currentSpot.getLabel())) {
-                            JSONArray datesForReservation = (JSONArray) currCamp.get("reservations");
-                            ArrayList<Date> datesReserved = getDatesBetween(startDate, endDate);
-                            for (Date currDate: datesReserved)
-                                datesForReservation.add(acceptedDateFormat.format(currDate));
-                        }
-                    }
+                    dao.addReservation(newReservation, startDate, endDate);
 
-                    reservations.put(Conf.account, array);
-                    FileWriter reservationFile = new FileWriter("data/reservation.json", false);
-                    FileWriter campManagerFile = new FileWriter("data/CampSpotManager.json", false);
-                    reservationFile.write(reservations.toJSONString());
-                    reservationFile.flush();
-                    reservationFile.close();
-                    campManagerFile.write(campsArr.toJSONString());
-                    campManagerFile.flush();
-                    campManagerFile.close();
                 }
                 catch(Exception ex){
                     System.out.println(ex);
@@ -291,23 +263,6 @@ public class CampSpotManager {
             }
         });
         return filterPanel;
-    }
-
-    private static ArrayList<Date> getDatesBetween(Date startDate, Date endDate) {
-        ArrayList<Date> datesInRange = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-
-        Calendar endCalendar = Calendar.getInstance();
-        endCalendar.setTime(endDate);
-
-        while (calendar.before(endCalendar)) {
-            Date result = calendar.getTime();
-            datesInRange.add(result);
-            calendar.add(Calendar.DATE, 1);
-        }
-        datesInRange.add(endDate);
-        return datesInRange;
     }
 
     public JPanel drawFilter(String people, String parking, String tent, Double prices, String handicaps){
@@ -455,8 +410,8 @@ public class CampSpotManager {
 
     public void initializeCamp(){
         try{
-            Object obj = parser.parse(new FileReader("data/CampSpotManager.json"));
-            JSONArray jsonArray = (JSONArray) obj;
+
+            JSONArray jsonArray = dao.getCampSpotManager();
             for (int i = 0; i < jsonArray.size(); i++){
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 String label = object.get("label").toString();
