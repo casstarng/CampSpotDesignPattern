@@ -24,6 +24,29 @@ public class DAO {
         return instance;
     }
 
+    public void deleteReservations(JSONObject reservations){
+        try {
+            FileWriter reservationFile = new FileWriter("data/reservation.json", false);
+            reservationFile.write(reservations.toJSONString());
+            reservationFile.flush();
+            reservationFile.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject getReservations(){
+        try {
+            Object o = parser.parse(new FileReader("data/reservation.json"));
+            JSONObject reservations = (JSONObject) o;
+            return reservations;
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
     // CampSpotManager l-456
     public JSONArray getCampSpotManager(){
         try{

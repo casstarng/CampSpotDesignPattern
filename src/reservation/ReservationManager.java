@@ -1,5 +1,6 @@
 package reservation;
 
+import UTIL.DAO;
 import UTIL.GUIUtil;
 import entity.Conf;
 import org.json.simple.JSONArray;
@@ -31,13 +32,10 @@ public class ReservationManager extends JFrame implements ActionListener{
     private String[] columns = {"pricePerDay", "reserveTime", "startTime", "endTime",
                                 "label", "tentSpace", "parkingSpace", "handicap", "recommendedPeople"};
     private Object[][] data;
+    private final DAO dao = DAO.getInstance();
 
     public ReservationManager(){
-        reservations = initialJson();
-
-
-
-
+        reservations = dao.getReservations();
 
         reservationArray =  (JSONArray) reservations.get(Conf.account);
         if (reservationArray == null){
@@ -93,27 +91,11 @@ public class ReservationManager extends JFrame implements ActionListener{
 
     }
 
-    private JSONObject initialJson(){
-        try {
-            Object o = parser.parse(new FileReader("data/reservation.json"));
-            JSONObject reservations = (JSONObject) o;
-            return reservations;
-        }catch (Exception e){
-
-        }
-        return null;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == deleteButton){
             delete();
         }
-    }
-
-    private void edit(){
-        int row = table.getSelectedRow();
-        System.out.println("Select row : " + row);
     }
 
     private void delete(){
@@ -126,23 +108,9 @@ public class ReservationManager extends JFrame implements ActionListener{
 
         reservations.put(Conf.account, reservationArray);
 
-        try {
-            FileWriter reservationFile = new FileWriter("data/reservation.json", false);
-            reservationFile.write(reservations.toJSONString());
-            reservationFile.flush();
-            reservationFile.close();
+        dao.deleteReservations(reservations);
 
-            tableModel.removeRow(row);
-            tableModel.fireTableDataChanged();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void updateData(){
-
+        tableModel.removeRow(row);
+        tableModel.fireTableDataChanged();
     }
 }
