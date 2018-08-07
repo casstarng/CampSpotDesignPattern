@@ -47,7 +47,6 @@ public class DAO {
         return null;
     }
 
-    // CampSpotManager l-456
     public JSONArray getCampSpotManager(){
         try{
             return (JSONArray) parser.parse(new FileReader("data/CampSpotManager.json"));

@@ -1,5 +1,6 @@
 package campspot;
 
+import UTIL.DAO;
 import entity.CampSpot;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +23,7 @@ public class CampSpotCompare extends Thread {
     ArrayList<CampSpot> campSpots = new ArrayList<>();
     JButton[] seats;
     String date;
+    DAO dao = DAO.getInstance();
 
     public CampSpotCompare(int x, int y, String date){
         this.date = date;
@@ -106,8 +108,7 @@ public class CampSpotCompare extends Thread {
      */
     public void initializeCamp(){
         try{
-            Object obj = parser.parse(new FileReader("data/CampSpotManager.json"));
-            JSONArray jsonArray = (JSONArray) obj;
+            JSONArray jsonArray = dao.getCampSpotManager();
             for (int i = 0; i < jsonArray.size(); i++){
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 String label = object.get("label").toString();

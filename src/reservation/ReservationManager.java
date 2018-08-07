@@ -19,8 +19,6 @@ import java.io.FileWriter;
  * Created by Cassidy Tarng on 5/4/2018.
  */
 public class ReservationManager extends JFrame implements ActionListener{
-    private JSONParser parser = new JSONParser();
-
     private JSONObject reservations;
     private JSONArray reservationArray;
     private JTable table;
