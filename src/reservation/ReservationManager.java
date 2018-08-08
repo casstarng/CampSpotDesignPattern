@@ -26,6 +26,7 @@ public class ReservationManager extends JFrame implements ActionListener{
 
     //private JButton editButton;
     private JButton deleteButton;
+    private JButton viewTicketButton;
 
     private String[] columns = {"pricePerDay", "reserveTime", "startTime", "endTime",
                                 "label", "tentSpace", "parkingSpace", "handicap", "recommendedPeople"};
@@ -67,18 +68,16 @@ public class ReservationManager extends JFrame implements ActionListener{
         add(scrollPane, BorderLayout.CENTER);
 
         //editButton = new JButton("Edit");
-        deleteButton = new JButton("delete");
-        //editButton.addActionListener(this);
+        deleteButton = new JButton("Delete");
+        viewTicketButton = new JButton("View Ticket");
         deleteButton.addActionListener(this);
+        viewTicketButton.addActionListener(this);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.fill = GridBagConstraints.BOTH;
         //buttonPanel.add(editButton, constraints);
-        buttonPanel.add(deleteButton, constraints);
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(viewTicketButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         setTitle("Your Reservation");
@@ -93,6 +92,15 @@ public class ReservationManager extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == deleteButton){
             delete();
+        }
+        if (e.getSource() == viewTicketButton){
+            int row = table.getSelectedRow();
+            if (row == -1){
+                JOptionPane.showMessageDialog(this,"Please select one record!");
+                return;
+            }
+
+            new Ticket((JSONObject) reservationArray.get(row));
         }
     }
 

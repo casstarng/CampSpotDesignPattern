@@ -27,7 +27,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public RegisterFrame() {
         /******************init********************/
         super("Register");
-        this.setLayout(new FlowLayout());
+        this.setLayout(new GridLayout(8, 2, 10, 5));
         this.add(lbAccount);
         this.add(tfAccount);
         this.add(lbPassword);
