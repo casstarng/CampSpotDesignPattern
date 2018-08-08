@@ -1,4 +1,4 @@
-package reservation;
+package Ticket;
 
 import UTIL.GUIUtil;
 import entity.Conf;
@@ -10,22 +10,9 @@ import java.awt.*;
 /**
  * Created by Cassidy Tarng on 8/7/2018.
  */
-public class Ticket {
-    JFrame frame = new JFrame();
-    JPanel sidePanel = new JPanel();
-    JLabel userName = new JLabel();
-    JLabel tentSpace = new JLabel();
-    JLabel handicap = new JLabel();
-    JLabel label = new JLabel();
-    JLabel parkingSpace = new JLabel();
-    JLabel recommendedPeople = new JLabel();
-    JLabel reserveTime = new JLabel();
-    JLabel startTime = new JLabel();
-    JLabel endTime = new JLabel();
-    JLabel pricePerDay = new JLabel();
+public class Ticket1 extends Ticket{
 
-
-    public Ticket(JSONObject reservation){
+    public Ticket1(JSONObject reservation){
         JSONObject campSpot = (JSONObject) reservation.get("campSpot");
         userName.setText("Username: " + Conf.account);
         tentSpace.setText("Tent Spaces: " + campSpot.get("tentSpace"));
@@ -41,7 +28,6 @@ public class Ticket {
     }
 
     public void drawScreen(){
-        //sidePanel = getSidePanel(" ", " ", " ", 0.0, " ");
 
         frame.setLayout(new GridLayout(4, 2));
         frame.setTitle("Ticket");

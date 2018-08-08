@@ -1,19 +1,18 @@
 package reservation;
 
+import Ticket.Ticket1;
+import Ticket.TicketFactory;
 import UTIL.DAO;
 import UTIL.GUIUtil;
 import entity.Conf;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.FileWriter;
 
 /**
  * Created by Cassidy Tarng on 5/4/2018.
@@ -100,7 +99,8 @@ public class ReservationManager extends JFrame implements ActionListener{
                 return;
             }
 
-            new Ticket((JSONObject) reservationArray.get(row));
+            TicketFactory ticketFactory = new TicketFactory();
+            ticketFactory.makeTicket((JSONObject) reservationArray.get(row), 1);
         }
     }
 
