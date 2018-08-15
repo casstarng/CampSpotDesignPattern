@@ -10,9 +10,9 @@ import java.awt.*;
 /**
  * Created by Cassidy Tarng on 8/7/2018.
  */
-public class Ticket1 extends Ticket{
+public class BasicTicket extends Ticket{
 
-    public Ticket1(JSONObject reservation){
+    public BasicTicket(JSONObject reservation){
         JSONObject campSpot = (JSONObject) reservation.get("campSpot");
         userName.setText("Username: " + Conf.account);
         tentSpace.setText("Tent Spaces: " + campSpot.get("tentSpace"));
@@ -29,9 +29,9 @@ public class Ticket1 extends Ticket{
 
     public void drawScreen(){
 
-        frame.setLayout(new GridLayout(4, 2));
+        frame.setLayout(new GridLayout(8, 2));
         frame.setTitle("Ticket");
-        frame.setSize(500, 500);
+        frame.setSize(400, 500);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -46,6 +46,7 @@ public class Ticket1 extends Ticket{
         frame.add(startTime);
         frame.add(endTime);
         frame.add(pricePerDay);
+
 
 
         GUIUtil.toCenter(frame);

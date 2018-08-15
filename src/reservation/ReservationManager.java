@@ -1,6 +1,5 @@
 package reservation;
 
-import Ticket.Ticket1;
 import Ticket.TicketFactory;
 import UTIL.DAO;
 import UTIL.GUIUtil;
@@ -26,6 +25,8 @@ public class ReservationManager extends JFrame implements ActionListener{
     //private JButton editButton;
     private JButton deleteButton;
     private JButton viewTicketButton;
+    private JRadioButton basicButton;
+    private JRadioButton eButton;
 
     private String[] columns = {"pricePerDay", "reserveTime", "startTime", "endTime",
                                 "label", "tentSpace", "parkingSpace", "handicap", "recommendedPeople"};
@@ -72,11 +73,21 @@ public class ReservationManager extends JFrame implements ActionListener{
         deleteButton.addActionListener(this);
         viewTicketButton.addActionListener(this);
 
+        //Radio Button group
+        basicButton = new JRadioButton("Printable Ticket");
+        basicButton.setSelected(true);
+        eButton = new JRadioButton("E-Ticket");
+        ButtonGroup group = new ButtonGroup();
+        group.add(basicButton);
+        group.add(eButton);
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
         //buttonPanel.add(editButton, constraints);
         buttonPanel.add(deleteButton);
         buttonPanel.add(viewTicketButton);
+        buttonPanel.add(basicButton);
+        buttonPanel.add(eButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         setTitle("Your Reservation");
@@ -100,7 +111,11 @@ public class ReservationManager extends JFrame implements ActionListener{
             }
 
             TicketFactory ticketFactory = new TicketFactory();
-            ticketFactory.makeTicket((JSONObject) reservationArray.get(row), 1);
+
+            int ticketVal = 1;
+            if(basicButton.isSelected()) ticketVal = 1;
+            else if(eButton.isSelected()) ticketVal = 2;
+            ticketFactory.makeTicket((JSONObject) reservationArray.get(row), ticketVal);
         }
     }
 
