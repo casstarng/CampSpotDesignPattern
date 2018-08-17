@@ -3,6 +3,7 @@ package campspot;
 import UTIL.DAO;
 import UTIL.GUIUtil;
 import entity.CampSpot;
+import entity.CampSpotCollection;
 import entity.Conf;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,13 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by Cassidy Tarng on 5/4/2018.
  */
 public class CampSpotManager {
 
-    ArrayList<CampSpot> campSpots = new ArrayList<>();
+    CampSpotCollection campSpotCollection = new CampSpotCollection();
     String previousClickedCampLabel;
     JLabel label = new JLabel();
     JLabel parkingSpace = new JLabel();
@@ -84,10 +86,12 @@ public class CampSpotManager {
 
         Color firColor = Color.GREEN;
 
-        JButton[] seats = new JButton[campSpots.size()];
+        JButton[] seats = new JButton[campSpotCollection.size()];
+
+        Iterator campSpotIterator = campSpotCollection.createIterator();
 
         for (int i = 0; i < seats.length; i++) {
-            CampSpot spot = campSpots.get(i);
+            CampSpot spot = (CampSpot) campSpotIterator.next();
             seats[i] = new JButton(spot.getLabel());
             // Disable if spot is unavailable
             if (spot.getDatesReserved().length > 0) {
@@ -139,13 +143,13 @@ public class CampSpotManager {
                     if (((JButton) e.getSource()).getBackground() == Color.GREEN){
                         // Makes previous selection green
                         if (previousClickedCampLabel != null){
-                            int previousClickedIndex = getCampSpotIndex(previousClickedCampLabel);
+                            int previousClickedIndex = campSpotCollection.getCampSpotIndex(previousClickedCampLabel);
                             seats[previousClickedIndex].setBackground(Color.GREEN);
                         }
                         // Makes current selection blue
                         String labelName = ((JButton) e.getSource()).getText();
                         previousClickedCampLabel = labelName;
-                        currentSpot = getCampSpot(labelName);
+                        currentSpot = campSpotCollection.getCampSpot(labelName);
                         ((JButton) e.getSource()).setBackground(Color.decode("#80bfff"));
 
                         // Set Camp Spot Info
@@ -427,7 +431,7 @@ public class CampSpotManager {
                     String strDateFromJson = (String) datesReserved.get(j);
                     datesReservedCamp[j] = strDateFromJson;
                 }
-                campSpots.add(new CampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                    campSpotCollection.addSpot(new CampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
             }
         }
         catch(Exception e){
@@ -448,17 +452,4 @@ public class CampSpotManager {
         return nextDate;
     }
 
-    public CampSpot getCampSpot(String label){
-        for (int i = 0; i < campSpots.size(); i++){
-            if (campSpots.get(i).getLabel().equals(label)) return campSpots.get(i);
-        }
-        return null;
-    }
-
-    public int getCampSpotIndex(String label){
-        for (int i = 0; i < campSpots.size(); i++){
-            if (campSpots.get(i).getLabel().equals(label)) return i;
-        }
-        return 0;
-    }
 }
