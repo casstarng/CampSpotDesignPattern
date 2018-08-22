@@ -4,7 +4,6 @@ import UTIL.DAO;
 import UTIL.GUIUtil;
 import entity.CampSpot;
 import entity.CampSpotCollection;
-import entity.Conf;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,12 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -40,6 +36,9 @@ public class CampSpotManager {
     JPanel drawCampSpot = drawCampSpots();
     JFrame frame = new JFrame();
     JPanel sidePanel = new JPanel();
+
+    InfoPanelSubject infoPanelSubject = new InfoPanelSubject();
+    InfoPanelObserver infoPanelObserver = new InfoPanelObserver(infoPanelSubject);
 
     String filterPeople = " ";
     String filterParking = " ";
@@ -153,12 +152,7 @@ public class CampSpotManager {
                         ((JButton) e.getSource()).setBackground(Color.decode("#80bfff"));
 
                         // Set Camp Spot Info
-                        label.setText("Label: " + currentSpot.getLabel());
-                        parkingSpace.setText("Parking Spaces: " + currentSpot.getParkingSpace());
-                        recommendedPeople.setText("Recommended People: " + currentSpot.getRecommendedPeople());
-                        tentSpace.setText("Tent Spaces: " + currentSpot.getTentSpace());
-                        price.setText("Price: " + currentSpot.getPrice());
-                        handicap.setText("Handicap: " + currentSpot.isHandicap());
+                        infoPanelSubject.setCurrentSpot(currentSpot);
                     }
                 }
             });
@@ -171,7 +165,7 @@ public class CampSpotManager {
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new GridLayout(3, 0, 0, 100));
         filterPanel.add(drawFilter(people, parking, tent, prices, handicaps));
-        filterPanel.add(drawCampSpotInfo());
+        filterPanel.add(infoPanelObserver.drawCampSpotInfo());
 
         // Panel that holds compare and Reserve buttons
         JPanel bottomPanel = new JPanel();
@@ -392,24 +386,6 @@ public class CampSpotManager {
         this.filterHandicap = handicap;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public JPanel drawCampSpotInfo(){
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(6, 1));
-        label.setText("Label: ---");
-        jPanel.add(label);
-        parkingSpace.setText("Parking Spaces: ---");
-        jPanel.add(parkingSpace);
-        recommendedPeople.setText("Recommended People: ---");
-        jPanel.add(recommendedPeople);
-        tentSpace.setText("Tent Spaces: ---");
-        jPanel.add(tentSpace);
-        price.setText("Price: ---");
-        jPanel.add(price);
-        handicap.setText("Handicap: ---");
-        jPanel.add(handicap);
-        return jPanel;
     }
 
     public void initializeCamp(){
