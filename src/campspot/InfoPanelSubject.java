@@ -3,7 +3,6 @@ package campspot;
 import entity.CampSpot;
 
 import java.util.*;
-import java.util.Observer;
 
 /**
  * Created by Cassidy Tarng on 8/21/2018.

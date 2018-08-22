@@ -26,12 +26,6 @@ public class CampSpotManager {
 
     CampSpotCollection campSpotCollection = new CampSpotCollection();
     String previousClickedCampLabel;
-    JLabel label = new JLabel();
-    JLabel parkingSpace = new JLabel();
-    JLabel recommendedPeople = new JLabel();
-    JLabel tentSpace = new JLabel();
-    JLabel price = new JLabel();
-    JLabel handicap = new JLabel();
 
     JPanel drawCampSpot = drawCampSpots();
     JFrame frame = new JFrame();
@@ -45,7 +39,6 @@ public class CampSpotManager {
     String filterTent = " ";
     Double filterPrice = 0.0;
     String filterHandicap = " ";
-    JSONParser parser = new JSONParser();
     CampSpot currentSpot;
     DateFormat acceptedDateFormat = new SimpleDateFormat("MM/dd/yyyy");
     Date startDate = new Date(); // store today's date on startDate if user doesn't specify.
