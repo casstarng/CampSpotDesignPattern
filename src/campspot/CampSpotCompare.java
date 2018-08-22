@@ -1,14 +1,13 @@
 package campspot;
 
 import UTIL.DAO;
-import entity.CampSpot;
+import entity.BaseCampSpot;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,7 @@ public class CampSpotCompare extends Thread {
 
     JFrame frame = new JFrame();
     JSONParser parser = new JSONParser();
-    ArrayList<CampSpot> campSpots = new ArrayList<>();
+    ArrayList<BaseCampSpot> campSpots = new ArrayList<>();
     JButton[] seats;
     String date;
     DAO dao = DAO.getInstance();
@@ -41,13 +40,13 @@ public class CampSpotCompare extends Thread {
 
     public void run(){
         try{
-            // Initializes the CampSpot grid
+            // Initializes the BaseCampSpot grid
             Color firColor = Color.GREEN;
 
             seats = new JButton[campSpots.size()];
 
             for (int i = 0; i < seats.length; i++) {
-                CampSpot spot = campSpots.get(i);
+                BaseCampSpot spot = campSpots.get(i);
                 seats[i] = new JButton(spot.getLabel());
 
                 seats[i].setOpaque(true);
@@ -124,7 +123,7 @@ public class CampSpotCompare extends Thread {
                     String strDateFromJson = (String) datesReserved.get(j);
                     datesReservedCamp[j] = strDateFromJson;
                 }
-                campSpots.add(new CampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                campSpots.add(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
             }
         }
         catch(Exception e){

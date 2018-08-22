@@ -1,78 +1,35 @@
-package entity; /**
- * Created by Cassidy Tarng on 5/4/2018.
- */
+package entity;
+
 import java.util.UUID;
-public class CampSpot {
-    UUID campSpotID;
-    String label;
-    int parkingSpace;
-    int recommendedPeople;
-    int tentSpace;
-    double price;
-    boolean handicap;
-    String[] datesReserved;
 
-    public CampSpot(String label, int parkingSpace, int recommendedPeople,
-        int tentSpace, double price, boolean handicap, String[] datesReserved) {
-        this.label = label;
-        this.parkingSpace = parkingSpace;
-        this.recommendedPeople = recommendedPeople;
-        this.tentSpace = tentSpace;
-        this.price = price;
-        this.handicap = handicap;
-        this.datesReserved = datesReserved;
-        campSpotID = UUID.randomUUID();
-    }
+/**
+ * Created by Cassidy Tarng on 8/21/2018.
+ */
+public interface CampSpot {
 
-    public UUID getCampSpotID() {
-        return campSpotID;
-    }
+    public UUID getCampSpotID();
 
-    public int getRecommendedPeople() {
-        return recommendedPeople;
-    }
+    public int getRecommendedPeople();
 
-    public boolean isHandicap() {
-        return handicap;
-    }
+    public boolean isHandicap();
 
-    public int getTentSpace() {
-        return tentSpace;
-    }
+    public int getTentSpace();
 
-    public double getPrice() {
-        return price;
-    }
+    public double getPrice();
 
-    public int getParkingSpace() {
-        return parkingSpace;
-    }
+    public int getParkingSpace();
 
-    public void setHandicap(boolean handicap) {
-        this.handicap = handicap;
-    }
+    public void setHandicap(boolean handicap);
 
-    public void setParkingSpace(int parkingSpace) {
-        this.parkingSpace = parkingSpace;
-    }
+    public void setParkingSpace(int parkingSpace);
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public void setPrice(double price);
 
-    public void setRecommendedPeople(int recommendedPeople) {
-        this.recommendedPeople = recommendedPeople;
-    }
+    public void setRecommendedPeople(int recommendedPeople);
 
-    public void setTentSpace(int tentSpace) {
-        this.tentSpace = tentSpace;
-    }
+    public void setTentSpace(int tentSpace);
 
-    public String getLabel() {
-        return label;
-    }
+    public String getLabel();
 
-    public String[] getDatesReserved() {
-            return datesReserved;
-    }
+    public String[] getDatesReserved();
 }

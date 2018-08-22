@@ -1,5 +1,6 @@
 package campspot;
 
+import entity.BaseCampSpot;
 import entity.CampSpot;
 
 import java.util.*;

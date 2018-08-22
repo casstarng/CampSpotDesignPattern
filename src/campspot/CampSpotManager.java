@@ -2,11 +2,9 @@ package campspot;
 
 import UTIL.DAO;
 import UTIL.GUIUtil;
-import entity.CampSpot;
-import entity.CampSpotCollection;
+import entity.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -400,7 +398,11 @@ public class CampSpotManager {
                     String strDateFromJson = (String) datesReserved.get(j);
                     datesReservedCamp[j] = strDateFromJson;
                 }
-                    campSpotCollection.addSpot(new CampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+
+                    if(tent > 2 && parking > 2) campSpotCollection.addSpot(new LargeTentCampSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp))));
+                    else if(tent > 2) campSpotCollection.addSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
+                    else if(parking > 2) campSpotCollection.addSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
+                    else campSpotCollection.addSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
             }
         }
         catch(Exception e){
