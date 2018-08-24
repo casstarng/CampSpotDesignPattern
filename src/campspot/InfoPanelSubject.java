@@ -1,6 +1,5 @@
 package campspot;
 
-import entity.BaseCampSpot;
 import entity.CampSpot;
 
 import java.util.*;
@@ -13,6 +12,9 @@ public class InfoPanelSubject implements Subject {
     private ArrayList<campspot.Observer> observers = new ArrayList<>();
     private CampSpot currentSpot;
 
+    /**
+     * Updates the currentSpot and notifies all observers
+     */
     public void setCurrentSpot(CampSpot currentSpot){
         this.currentSpot = currentSpot;
 

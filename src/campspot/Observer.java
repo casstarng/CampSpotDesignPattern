@@ -1,6 +1,5 @@
 package campspot;
 
-import entity.BaseCampSpot;
 import entity.CampSpot;
 
 /**

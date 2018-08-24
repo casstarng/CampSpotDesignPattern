@@ -1,6 +1,5 @@
 package campspot;
 
-import entity.BaseCampSpot;
 import entity.CampSpot;
 
 import javax.swing.*;
@@ -26,6 +25,9 @@ public class InfoPanelObserver implements Observer {
         this.infoPanelSubject.attach(this);
     }
 
+    /**
+     * Updates the Side Info Panel based on the currentSpot
+     */
     public void update(CampSpot currentSpot){
         // Set Camp Spot Info
         label.setText("Label: " + currentSpot.getLabel());
@@ -36,6 +38,9 @@ public class InfoPanelObserver implements Observer {
         handicap.setText("Handicap: " + currentSpot.isHandicap());
     }
 
+    /**
+     * Draws the sideInfoPanel
+     */
     public JPanel drawCampSpotInfo(){
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(6, 1));
