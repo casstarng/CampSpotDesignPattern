@@ -44,6 +44,8 @@ public class CampSpotManager {
     JFormattedTextField date1Compare, date2Compare;
     DAO dao = DAO.getInstance();
 
+    CampSpotCompareController campSpotCompareController;
+
 
     public CampSpotManager(){
         initializeCamp();
@@ -203,7 +205,7 @@ public class CampSpotManager {
                     JOptionPane.showMessageDialog(frame, "Please enter 2 dates to compare");
                 }
                 else {
-                    new CampSpotCompareController(date1Compare.getText(), date2Compare.getText());
+                    campSpotCompareController = new CampSpotCompareController(date1Compare.getText(), date2Compare.getText());
                 }
 
             }

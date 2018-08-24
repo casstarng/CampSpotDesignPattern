@@ -21,6 +21,9 @@ public class HomeScreen extends JFrame implements ActionListener{
     private JButton modifyButton;
     private JButton exitButton;
 
+    private CampSpotManager campSpotManager;
+    private ReservationManager reservationManager;
+    private ModifyDialog modifyDialog;
 
 
 
@@ -70,11 +73,11 @@ public class HomeScreen extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == reserveButton){
-            new CampSpotManager();
+            campSpotManager = new CampSpotManager();
         }else if(e.getSource() == viewReservationButton){
-            new ReservationManager();
+            reservationManager = new ReservationManager();
         }else if(e.getSource() == modifyButton){
-            new ModifyDialog(this);
+            modifyDialog = new ModifyDialog(this);
         }else if(e.getSource() == exitButton){
             JOptionPane.showMessageDialog(this,"Thanks and see you soon");
             System.exit(0);

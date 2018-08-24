@@ -28,6 +28,8 @@ public class ReservationManager extends JFrame implements ActionListener{
     private JRadioButton basicButton;
     private JRadioButton eButton;
 
+    private TicketFactory ticketFactory;
+
     private String[] columns = {"pricePerDay", "reserveTime", "startTime", "endTime",
                                 "label", "tentSpace", "parkingSpace", "handicap", "recommendedPeople"};
     private Object[][] data;
@@ -110,7 +112,7 @@ public class ReservationManager extends JFrame implements ActionListener{
                 return;
             }
 
-            TicketFactory ticketFactory = new TicketFactory();
+            ticketFactory = new TicketFactory();
 
             int ticketVal = 1;
             if(basicButton.isSelected()) ticketVal = 1;

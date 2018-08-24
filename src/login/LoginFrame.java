@@ -20,6 +20,10 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JButton btLogin=new JButton("Login");
     private JButton btRegister=new JButton("Register");
     private JButton btExit=new JButton("Exit");
+
+    private HomeScreen homeScreen;
+    private RegisterFrame registerFrame;
+
     public LoginFrame() {
         super("WELCOME");
         this.setLayout(new FlowLayout());
@@ -53,11 +57,11 @@ public class LoginFrame extends JFrame implements ActionListener {
             }
             JOptionPane.showMessageDialog(this,"Login successfully");
             this.dispose();
-            new HomeScreen();
+            homeScreen = new HomeScreen();
         }
         else if(e.getSource()==btRegister) {
             this.dispose();
-            new RegisterFrame();
+            registerFrame = new RegisterFrame();
         }
         else {
             JOptionPane.showMessageDialog(this,"Thanks and see you soon");
