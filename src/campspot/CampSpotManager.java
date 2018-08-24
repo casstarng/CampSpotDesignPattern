@@ -83,8 +83,13 @@ public class CampSpotManager {
         for (int i = 0; i < seats.length; i++) {
             CampSpot spot = (CampSpot) campSpotIterator.next();
             seats[i] = new JButton(spot.getLabel());
+            // Disable if spot is Closed
+            if (spot.isOpen()){
+                seats[i].setBackground(Color.LIGHT_GRAY);
+                seats[i].setEnabled(false);
+            }
             // Disable if spot is unavailable
-            if (spot.getDatesReserved().length > 0) {
+            else if (spot.getDatesReserved().length > 0) {
                 for (String date: spot.getDatesReserved()){
                     if (acceptedDateFormat.format(startDate).equals(date)) {
                         seats[i].setBackground(Color.LIGHT_GRAY);
@@ -386,6 +391,7 @@ public class CampSpotManager {
             for (int i = 0; i < jsonArray.size(); i++){
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 String label = object.get("label").toString();
+                boolean isOpen = (Boolean) object.get("isOpen");
                 int parking = Integer.parseInt(object.get("parkingSpace").toString());
                 int people = Integer.parseInt(object.get("recommendedPeople").toString());
                 int tent = Integer.parseInt(object.get("tentSpace").toString());
@@ -399,10 +405,17 @@ public class CampSpotManager {
                     datesReservedCamp[j] = strDateFromJson;
                 }
 
-                    if(tent > 2 && parking > 2) campSpotCollection.addSpot(new LargeTentCampSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp))));
-                    else if(tent > 2) campSpotCollection.addSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
-                    else if(parking > 2) campSpotCollection.addSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
-                    else campSpotCollection.addSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                    CampSpot newCampSpot;
+                    if(tent > 2 && parking > 2) newCampSpot = new LargeTentCampSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
+                    else if(tent > 2) newCampSpot = new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                    else if(parking > 2) newCampSpot = new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                    else newCampSpot = new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp);
+
+                    if(!isOpen) newCampSpot.setState(new CampClosed());
+
+                    campSpotCollection.addSpot(newCampSpot);
+
+
             }
         }
         catch(Exception e){

@@ -1,5 +1,7 @@
 package entity;
 
+import campspot.CampAvailabilityState;
+
 import java.util.UUID;
 
 /**
@@ -57,5 +59,13 @@ abstract class CampSpotDecorator implements CampSpot{
 
     public String[] getDatesReserved() {
         return campSpot.getDatesReserved();
+    }
+
+    public void setState(CampAvailabilityState campAvailabilityState){
+        campSpot.setState(campAvailabilityState);
+    }
+
+    public boolean isOpen(){
+        return campSpot.isOpen();
     }
 }

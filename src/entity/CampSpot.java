@@ -1,5 +1,7 @@
 package entity;
 
+import campspot.CampAvailabilityState;
+
 import java.util.UUID;
 
 /**
@@ -32,4 +34,8 @@ public interface CampSpot {
     String getLabel();
 
     String[] getDatesReserved();
+
+    void setState(CampAvailabilityState campAvailabilityState);
+
+    boolean isOpen();
 }
