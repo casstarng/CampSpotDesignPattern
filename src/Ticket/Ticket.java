@@ -4,6 +4,8 @@ import javax.swing.*;
 
 /**
  * Created by Cassidy Tarng on 8/7/2018.
+ *
+ * Acts as the Abstract Product
  */
 public abstract class Ticket {
     JFrame frame = new JFrame();

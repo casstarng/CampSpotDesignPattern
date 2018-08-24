@@ -27,6 +27,9 @@ public class BasicTicket extends Ticket{
         drawScreen();
     }
 
+    /**
+     * Draws the Basic ticket
+     */
     public void drawScreen(){
 
         frame.setLayout(new GridLayout(8, 2));

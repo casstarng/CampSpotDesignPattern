@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
+/**
+ * Singleton Object used for data access
+ */
 public class DAO {
 
     private static final DAO instance = new DAO();
@@ -20,10 +24,16 @@ public class DAO {
 
     public DAO(){ }
 
+    /**
+     * @return Instance of the DAO
+     */
     public static DAO getInstance(){
         return instance;
     }
 
+    /**
+     * Deletes a reservation from reservation.json
+     */
     public void deleteReservations(JSONObject reservations){
         try {
             FileWriter reservationFile = new FileWriter("data/reservation.json", false);
@@ -36,6 +46,9 @@ public class DAO {
         }
     }
 
+    /**
+     * @return Object of reservations in reservation.json
+     */
     public JSONObject getReservations(){
         try {
             Object o = parser.parse(new FileReader("data/reservation.json"));
@@ -47,6 +60,9 @@ public class DAO {
         return null;
     }
 
+    /**
+     * @return Array of CampSpots in CampSpotManager.json
+     */
     public JSONArray getCampSpotManager(){
         try{
             return (JSONArray) parser.parse(new FileReader("data/CampSpotManager.json"));
@@ -57,6 +73,9 @@ public class DAO {
         return null;
     }
 
+    /**
+     * Adds a reservation into reservation.json
+     */
     public void addReservation(JSONObject newReservation, Date startDate, Date endDate){
         try{
             Object obj = parser.parse(new FileReader("data/reservation.json"));
@@ -103,6 +122,9 @@ public class DAO {
 
     }
 
+    /**
+     * @return List of dates between a range
+     */
     private static ArrayList<Date> getDatesBetween(Date startDate, Date endDate) {
         ArrayList<Date> datesInRange = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();

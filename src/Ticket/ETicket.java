@@ -30,6 +30,9 @@ public class ETicket extends Ticket{
         drawScreen();
     }
 
+    /**
+     * Draws the ETicket
+     */
     public void drawScreen(){
 
         frame.setLayout(new GridLayout(0, 2));

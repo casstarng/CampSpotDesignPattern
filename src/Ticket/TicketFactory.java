@@ -7,14 +7,23 @@ import org.json.simple.JSONObject;
  */
 public class TicketFactory {
 
+    private Ticket ticket;
+
+    /**
+     * Creates a ticket based on the reservation information and type of ticket being made
+     * Acts as the factory method
+     */
     public Ticket makeTicket(JSONObject reservations, int index){
         switch (index){
             case 1:
-                return new BasicTicket(reservations);
+                ticket = new BasicTicket(reservations);
+                return ticket;
             case 2:
-                return new ETicket(reservations);
+                ticket = new ETicket(reservations);
+                return ticket;
             default:
-                return new BasicTicket(reservations);
+                ticket = new BasicTicket(reservations);
+                return ticket;
         }
     }
 }
