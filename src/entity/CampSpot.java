@@ -7,29 +7,29 @@ import java.util.UUID;
  */
 public interface CampSpot {
 
-    public UUID getCampSpotID();
+    UUID getCampSpotID();
 
-    public int getRecommendedPeople();
+    int getRecommendedPeople();
 
-    public boolean isHandicap();
+    boolean isHandicap();
 
-    public int getTentSpace();
+    int getTentSpace();
 
-    public double getPrice();
+    double getPrice();
 
-    public int getParkingSpace();
+    int getParkingSpace();
 
-    public void setHandicap(boolean handicap);
+    void setHandicap(boolean handicap);
 
-    public void setParkingSpace(int parkingSpace);
+    void setParkingSpace(int parkingSpace);
 
-    public void setPrice(double price);
+    void setPrice(double price);
 
-    public void setRecommendedPeople(int recommendedPeople);
+    void setRecommendedPeople(int recommendedPeople);
 
-    public void setTentSpace(int tentSpace);
+    void setTentSpace(int tentSpace);
 
-    public String getLabel();
+    String getLabel();
 
-    public String[] getDatesReserved();
+    String[] getDatesReserved();
 }
