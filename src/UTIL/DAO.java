@@ -83,10 +83,11 @@ public class DAO {
             JSONObject reservations = (JSONObject) obj;
             JSONArray campsArr = (JSONArray) campSpotParser;
             JSONArray array;
-            // If account exists
+            // If account exists add to existing account
             if (reservations.containsKey(Conf.account)){
                 array = (JSONArray) reservations.get(Conf.account);
             }
+            // Else create a new account
             else{
                 array = new JSONArray();
             }
@@ -94,6 +95,7 @@ public class DAO {
             array.add(newReservation);
             DateFormat acceptedDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
+            // Adds the new dates into the the CampSpot
             for (int i = 0; i<campsArr.size(); i++) {
                 JSONObject currCamp = (JSONObject) campsArr.get(i);
                 JSONObject newCamp = (JSONObject)  newReservation.get("campSpot");

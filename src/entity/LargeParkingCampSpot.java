@@ -9,6 +9,9 @@ public class LargeParkingCampSpot extends CampSpotDecorator {
         super(campSpot);
     }
 
+    /**
+     * @return Price of CampSpot + 30 for a Large parking space
+     */
     public double getPrice(){
         return campSpot.getPrice() + 20;
     }
