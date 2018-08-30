@@ -80,7 +80,7 @@ public class CampSpotManager {
 
         JButton[] seats = new JButton[campSpotCollection.size()];
 
-        Iterator campSpotIterator = campSpotCollection.createIterator();
+        entity.Iterator campSpotIterator = campSpotCollection.createIterator();
 
         for (int i = 0; i < seats.length; i++) {
             CampSpot spot = (CampSpot) campSpotIterator.next();

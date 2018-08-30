@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * Created by Cassidy Tarng on 8/16/2018.
  */
-public class CampSpotCollection implements CampSpotIterator{
+public class CampSpotCollection implements Aggregate{
 
     private ArrayList<CampSpot> campSpots;
 
@@ -51,8 +51,8 @@ public class CampSpotCollection implements CampSpotIterator{
     /**
      * Creates an iterator and returns
      */
-    public Iterator createIterator(){
-        return campSpots.iterator();
+    public entity.Iterator createIterator(){
+        return new CampSpotIterator(campSpots);
     }
 
 
