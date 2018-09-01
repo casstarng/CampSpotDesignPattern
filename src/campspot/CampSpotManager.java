@@ -409,7 +409,7 @@ public class CampSpotManager {
 
                     CampSpot newCampSpot;
                     if(tent > 2 && parking > 2) newCampSpot = new LargeTentCampSpot(new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp)));
-                    else if(tent > 2) newCampSpot = new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
+                    else if(tent > 2) newCampSpot = new LargeTentCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
                     else if(parking > 2) newCampSpot = new LargeParkingCampSpot(new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp));
                     else newCampSpot = new BaseCampSpot(label, parking, people, tent, price, handicap, datesReservedCamp);
 
